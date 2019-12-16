@@ -10,9 +10,9 @@ def api(symbol):
 ## Presents JSON from API in a user-friendly format
 def jsonToStock(jsonObj):
     stockDict = json.loads(jsonObj)
-    print("Symbol:", stockDict["symbol"])
-    print("Price:", stockDict["latestPrice"])
-    print("Company Name:", stockDict["companyName"])
+    print("Symbol",stockDict["symbol"])
+    print("Price",stockDict["latestPrice"])
+    print("Company Name",stockDict["companyName"])
     print("--------------------")
 
 
@@ -22,7 +22,7 @@ count = 0
 # Loop contains controls for program
 while end is False:
     count = count + 1
-    print("Current Count :", count)
+    print("Current Count : " + str(count))
 
     stockResponse = requests.get(api("F"))
     print(jsonToStock(stockResponse.content))
