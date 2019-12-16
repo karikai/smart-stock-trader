@@ -4,7 +4,7 @@ import time
 
 ## Handles API Calls
 def api(symbol):
-    request = 'https://cloud.iexapis.com/stable/stock/' + symbol + '/quote?token=pk_c37812d235954d52b6089fe8ecf50261'
+    request = 'https://cloud.iexapis.com/stable/stock/' + symbol + '/quote?token=pk_fc4857bc809645fb98c7bfa9132d259d'
     return request
 
 ## Presents JSON from API in a user-friendly format
