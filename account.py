@@ -1,4 +1,4 @@
-import transactions
+import transaction
 
 class Account:
     capital = 0
@@ -19,7 +19,7 @@ class Account:
         self.accountID = accountID
 
     def buy(self, stock, quantity):
-        newTransaction = transactions.Transaction()
+        newTransaction = transaction.Transaction()
         newTransaction = newTransaction.createBuy(stock,quantity)
         if (self.canMakeTransaction(newTransaction.calculateTotal())):
             self.transactions.append(newTransaction)
@@ -28,7 +28,7 @@ class Account:
 
 
     def sell(self, stock, quantity):
-        newTransaction = transactions.Transaction()
+        newTransaction = transaction.Transaction()
         newTransaction = newTransaction.createSell(stock,quantity)
         if (self.canMakeTransaction(newTransaction.calculateTotal())):
             self.transactions.append(newTransaction)
