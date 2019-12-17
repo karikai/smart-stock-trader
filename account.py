@@ -5,18 +5,18 @@ class Account:
     accountID = ''
     stocks = []
     transactions = []
-
-    def __init__(self, capital, stocks, transactions, accountID):
-        self.capital = capital
-        self.stocks = stocks
-        self.transactions = transactions
-        self.accountID = accountID
     
     def __init(self):
         self.capital = 0
         self.stocks = []
         self.transactions = []
         self.accountID = ''
+
+    def initializeAccount(self, capital, stocks, transactions, accountID):
+        self.capital = capital
+        self.stocks = stocks
+        self.transactions = transactions
+        self.accountID = accountID
 
     def buy(self, stock, quantity):
         newTransaction = transactions.Transaction()
