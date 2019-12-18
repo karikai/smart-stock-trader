@@ -22,10 +22,16 @@ class SST:
         return stockDict
 
     def initiateBuy(self):
+        # need to define logic for initiating buy
         return True
 
-    # def initiateSell(self):
+    # def determineBuyAmount(self):
 
+    def initiateSell(self):
+        # need to define logic for initiating sell
+        return True
+
+    # def determineSellAmount(self):
 
     def watch(self):
         while True:
@@ -34,8 +40,9 @@ class SST:
                 stockObject = self.jsonToStock(stockResponse.content)
                 print(stockObject['symbol'],stockObject['latestPrice'])
                 if (self.initiateBuy()):
-                    self.account.buy(stockObject, 5)
-                print(self.account.capital) 
+                    self.account.buy(stockObject, 5) 
+                if (self.initiateSell()):
+                    self.account.sell(stockObject, 5)
                 
             time.sleep(self.SSTConfig.latency)
 

@@ -21,19 +21,16 @@ class Account:
 
     def buy(self, stock, quantity):
         newTransaction = TRA.Transaction()
-        newTransaction = newTransaction.createBuyTransaction(stock,quantity)
+        newTransaction = newTransaction.createBuyTransaction(stock, quantity)
         if (self.canMakeTransaction(newTransaction.calculateTotal())):
             TRA.Transaction.buy(newTransaction, self)
         else:
             print('Not enough capital')
 
-    # def sell(self, stock, quantity):
-    #     newTransaction = transaction.Transaction()
-    #     newTransaction = newTransaction.createSellTransaction(stock,quantity)
-    #     if (self.canMakeTransaction(newTransaction.calculateTotal())):
-    #         self.transactions.append(newTransaction)
-    #     else:
-    #         print('Not enough capital')
+    def sell(self, stock, quantity):
+        newTransaction = TRA.Transaction()
+        newTransaction = newTransaction.createSellTransaction(stock, quantity)
+        TRA.Transaction.sell(newTransaction, self, self.getShareIndices(stock['symbol']))
 
     def getCapital(self):
         total = 0
@@ -46,3 +43,20 @@ class Account:
             return True
         else:
             return False
+
+    def getSharesBySymbol(self, symbol):
+        currentShares = []
+        for share in self.shares:
+            if (share.symbol.lower() == symbol.lower()):
+                currentShares.append(share)
+        return currentShares
+
+    def getShareIndices(self, symbol):
+        indices = []
+        index = 0
+        for share in self.shares:
+            if (share.symbol.lower() == symbol.lower()):
+                indices.append(index)
+            index += 1
+        return indices
+

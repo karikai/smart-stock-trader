@@ -47,8 +47,17 @@ class Transaction:
                 account.shares.append(Transaction.createShare(newTransaction))
                 account.capital -= newTransaction.stock['latestPrice']
 
-    # @staticmethod
-    # def sell(newTransaction, account, indicies):
-    #     shareAmount = account.getNumberOfShares(newTransaction.stock.symbol n)
-
-
+    @staticmethod
+    def sell(newTransaction, account, indices):
+        shareAmount = account.getSharesBySymbol(newTransaction.stock['symbol'])
+        if len(shareAmount) <= newTransaction.quantity:
+            for index in indices:
+                account.shares[index] = None
+                account.capital += newTransaction.stock['latestPrice']
+        else:
+            print('not enough stocks')
+        newSharesList = []
+        for share in account.shares:
+            if share is not None:
+                newSharesList.append(share)
+        account.shares = newSharesList
