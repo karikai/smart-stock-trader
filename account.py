@@ -1,10 +1,11 @@
-import transaction
+import transaction as TRA
 
 class Account:
     capital = 0
     accountID = ''
     stocks = []
     transactions = []
+    shares = []
     
     def __init(self):
         self.capital = 0
@@ -19,21 +20,20 @@ class Account:
         self.accountID = accountID
 
     def buy(self, stock, quantity):
-        newTransaction = transaction.Transaction()
-        newTransaction = newTransaction.createBuy(stock,quantity)
+        newTransaction = TRA.Transaction()
+        newTransaction = newTransaction.createBuyTransaction(stock,quantity)
         if (self.canMakeTransaction(newTransaction.calculateTotal())):
-            self.transactions.append(newTransaction)
+            TRA.Transaction.buy(newTransaction, self)
         else:
             print('Not enough capital')
 
-
-    def sell(self, stock, quantity):
-        newTransaction = transaction.Transaction()
-        newTransaction = newTransaction.createSell(stock,quantity)
-        if (self.canMakeTransaction(newTransaction.calculateTotal())):
-            self.transactions.append(newTransaction)
-        else:
-            print('Not enough capital')
+    # def sell(self, stock, quantity):
+    #     newTransaction = transaction.Transaction()
+    #     newTransaction = newTransaction.createSellTransaction(stock,quantity)
+    #     if (self.canMakeTransaction(newTransaction.calculateTotal())):
+    #         self.transactions.append(newTransaction)
+    #     else:
+    #         print('Not enough capital')
 
     def getCapital(self):
         total = 0
@@ -41,8 +41,8 @@ class Account:
             total += transaction.stock['latestPrice']
         return self.capital + total
 
-    def canMakeTransaction(self, transaction):
-        if (transaction.calculateTotal() <= self.capital):
+    def canMakeTransaction(self, transactionAmount):
+        if ((transactionAmount * -1) <= self.capital):
             return True
         else:
             return False
