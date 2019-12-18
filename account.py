@@ -20,6 +20,7 @@ class Account:
         self.accountID = accountID
 
     def buy(self, stock, quantity):
+        print('Bought: ' + str(quantity) + ' - ' + stock['symbol'])
         newTransaction = TRA.Transaction()
         newTransaction = newTransaction.createBuyTransaction(stock, quantity)
         if (self.canMakeTransaction(newTransaction.calculateTotal())):
@@ -28,6 +29,7 @@ class Account:
             print('Not enough capital')
 
     def sell(self, stock, quantity):
+        print('Sold: ' + str(quantity) + ' - ' + stock['symbol'])
         newTransaction = TRA.Transaction()
         newTransaction = newTransaction.createSellTransaction(stock, quantity)
         TRA.Transaction.sell(newTransaction, self, self.getShareIndices(stock['symbol']))
