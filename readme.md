@@ -10,3 +10,4 @@
 	<li>~ make an accompanying web and mobile application</li>
 
 About 135000 API Request per day for 1 second intervals
+Simple change
