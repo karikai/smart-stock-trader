@@ -7,6 +7,9 @@ import account
 class SST:
     account = None
     SSTConfig = None
+    runtime = None
+    floatingStopGain = None
+    floatingStopLoss = None
 
     def __init__(self, account, config):
         self.account = account
@@ -21,28 +24,52 @@ class SST:
         stockDict = json.loads(jsonObj)
         return stockDict
 
-    def initiateBuy(self):
-        # need to define logic for initiating buy
-        return True
+    def initiateBuy(self, stock):
+        # logic for initiating buy
+        if stock['isUSMarketOpen']:
+            if (stock['latestPrice'] <= (1.1 * stock['low'])): # Checks to see if stock price is 10% within its daily low
+                return True
+            else:
+                return False            
+        else:
+            return False
 
     # def determineBuyAmount(self):
 
-    def initiateSell(self):
-        # need to define logic for initiating sell
-        return True
+    def initiateSell(self, stock):
+        # logic for initiating sell
+        if stock['isUSMarketOpen']:
+            investmentTotal = 0
+            net = 0
+
+            for share in self.account.getSharesBySymbol(stock['symbol']):
+                investmentTotal += share.originalPrice
+                net += share.originalPrice - stock['latestPrice']
+            
+            # Stop Gain
+            if net >= investmentTotal * .05: # Stops gains at 5% of initial investment
+                return True
+            # Stop Loss
+            elif net <= investmentTotal * -.05: # Stops losses at 5% of initial investment
+                return True
+            else:
+                return False
+        else:
+            return False
 
     # def determineSellAmount(self):
 
     def watch(self):
+        self.runtime = 0
         while True:
             for stock in self.account.stocks:
                 stockResponse = requests.get(self.getStock(stock))
                 stockObject = self.jsonToStock(stockResponse.content)
                 print(stockObject['symbol'],stockObject['latestPrice'])
-                if (self.initiateBuy()):
+                if (self.initiateBuy(stockObject)):
                     self.account.buy(stockObject, 5) 
-                if (self.initiateSell()):
-                    self.account.sell(stockObject, 5)
+                if (self.initiateSell(stockObject)):
+                    self.account.sell(stockObject, len(self.account.getSharesBySymbol(stock['symbol'])))
                 
             time.sleep(self.SSTConfig.latency)
 

@@ -11,3 +11,4 @@
 	<li>- determine stock factors</li>
 
 About 135000 API Request per day for 1 second intervals
+Simple change

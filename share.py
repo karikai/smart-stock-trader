@@ -8,5 +8,5 @@ class Share:
         self.symbol = stock['symbol']
         self.stock = stock
         self.orderDate = orderDate
-        self.sellPrice = stock['latestPrice']
+        self.originalPrice = stock['latestPrice']
 
