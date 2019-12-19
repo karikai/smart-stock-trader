@@ -1,4 +1,5 @@
 import transaction as TRA
+import fbconnector as FIRE
 
 class Account:
     capital = 0
@@ -32,6 +33,7 @@ class Account:
         print('Sold: ' + str(quantity) + ' - ' + stock['symbol'])
         newTransaction = TRA.Transaction()
         newTransaction = newTransaction.createSellTransaction(stock, quantity)
+        print(self.getShareIndices(stock['symbol']))
         TRA.Transaction.sell(newTransaction, self, self.getShareIndices(stock['symbol']))
 
     def getCapital(self):
@@ -60,5 +62,12 @@ class Account:
             if (share.symbol.lower() == symbol.lower()):
                 indices.append(index)
             index += 1
+        print(indices)
         return indices
 
+    def ownsShare(self, symbol):
+        check = False
+        for share in self.shares:
+            if (share.symbol.lower() == symbol.lower()):
+                check = True
+        return check

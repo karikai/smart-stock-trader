@@ -12,3 +12,9 @@
 
 About 135000 API Request per day for 1 second intervals
 Simple change
+
+you have to run:
+
+pip install firebase_admin
+
+We need to set up a virtual enviornment to keep track of our dependencies

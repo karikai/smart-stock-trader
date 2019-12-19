@@ -1,5 +1,6 @@
 import datetime
 import share
+import fbconnector as FIRE
 
 class Transaction:
     stock = None
@@ -46,6 +47,7 @@ class Transaction:
             if (newTransaction.quantity == 1):
                 account.shares.append(Transaction.createShare(newTransaction))
                 account.capital -= newTransaction.stock['latestPrice']
+        FIRE.updateAccount(account)
 
     @staticmethod
     def sell(newTransaction, account, indices):
@@ -61,3 +63,4 @@ class Transaction:
             if share is not None:
                 newSharesList.append(share)
         account.shares = newSharesList
+        FIRE.updateAccount(account)

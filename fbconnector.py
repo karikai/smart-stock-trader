@@ -26,15 +26,37 @@ def setAccount(account):
     })
 
 def setTransactions(transactions, accountID):
+    transactionArray = []
+
+    for transaction in transactions:
+        transactionDict = {
+            'stock': transaction.stock,
+            'quantity': transaction.quantity,
+            'transactionType': transaction.transactionType,
+            'date': transaction.date
+        }
+        transactionArray.append(transactionDict)
+
     getTransactionRef(accountID).set({
         u'accountID': accountID,
-        u'transactions': transactions
+        u'transactions': transactionArray
     })
 
 def setShares(shares, accountID):
+    sharesArray = []
+
+    for share in shares:
+        transactionDict = {
+            'symbol': share.symbol,
+            'stock': share.stock,
+            'originalPrice': share.originalPrice,
+            'orderDate': share.orderDate
+        }
+        sharesArray.append(transactionDict)
+
     getShareRef(accountID).set({
         u'accountID': accountID,
-        u'shares': shares
+        u'shares': sharesArray
     })
 
 def setConfig(config, accountID):
@@ -62,3 +84,8 @@ def getConfig(accountID):
     doc = getConfigRef(accountID)
     shareDict = doc.get()
     print(u'Document data: {}'.format(shareDict.to_dict()))
+
+def updateAccount(account):
+    setAccount(account)
+    setTransactions(account.transactions, account.accountID)
+    setShares(account.shares, account.accountID)
