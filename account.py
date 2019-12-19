@@ -54,7 +54,7 @@ class Account:
         return currentShares
 
     def getShareIndices(self, symbol):
-        indices = []
+        indices = []    
         index = 0
         for share in self.shares:
             if (share.symbol.lower() == symbol.lower()):
