@@ -8,5 +8,6 @@
 	<li>~ store a fake ammount of captial</li>
 	<li>~ store each transaction and shares</li>
 	<li>~ make an accompanying web and mobile application</li>
+	<li>- determine stock factors</li>
 
 About 135000 API Request per day for 1 second intervals
