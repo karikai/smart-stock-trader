@@ -21,18 +21,18 @@ class Account:
         self.accountID = accountID
 
     def buy(self, stock, quantity):
-        print('Bought: ' + str(quantity) + ' - ' + stock['symbol'])
         newTransaction = TRA.Transaction()
         newTransaction = newTransaction.createBuyTransaction(stock, quantity)
+        print('Bought: ' + str(quantity) + ' shares of ' + stock['symbol'] + ' for $' + str(newTransaction.calculateTotal()))
         if (self.canMakeTransaction(newTransaction.calculateTotal())):
             TRA.Transaction.buy(newTransaction, self)
         else:
             print('Not enough capital')
 
     def sell(self, stock, quantity):
-        print('Sold: ' + str(quantity) + ' - ' + stock['symbol'])
         newTransaction = TRA.Transaction()
         newTransaction = newTransaction.createSellTransaction(stock, quantity)
+        print('Sold: ' + str(quantity) + ' shares of ' + stock['symbol'] + ' for $' + str(newTransaction.calculateTotal() * -1))
         print(self.getShareIndices(stock['symbol']))
         TRA.Transaction.sell(newTransaction, self, self.getShareIndices(stock['symbol']))
 
@@ -41,6 +41,17 @@ class Account:
         for transaction in self.transactions:
             total += transaction.stock['latestPrice']
         return self.capital + total
+
+    def echoStocks(self):
+        stocksString = ''
+        count = 0
+        for stock in self.stocks:
+            count += 1
+            if count == len(self.stocks):
+                stocksString += stock
+            else:
+                stocksString += stock + ', '
+        return stocksString
 
     def canMakeTransaction(self, transactionAmount):
         if ((transactionAmount * -1) <= self.capital):
@@ -54,6 +65,13 @@ class Account:
             if (share.symbol.lower() == symbol.lower()):
                 currentShares.append(share)
         return currentShares
+
+    def getShareAmount(self, symbol):
+        count = 0
+        for share in self.shares:
+            if (share.symbol.lower() == symbol.lower()):
+                count += 1
+        return count
 
     def getShareIndices(self, symbol):
         indices = []    

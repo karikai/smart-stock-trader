@@ -43,7 +43,6 @@ class Transaction:
                     account.shares.append(Transaction.createShare(newTransaction))
                     account.capital -= newTransaction.stock['latestPrice']
                     i += 1
-                    print(i, newTransaction.stock['latestPrice'])
             if (newTransaction.quantity == 1):
                 account.shares.append(Transaction.createShare(newTransaction))
                 account.capital -= newTransaction.stock['latestPrice']
