@@ -15,12 +15,12 @@ class Transaction:
 
     def createBuyTransaction(self, stock, quantity):
         self.create(stock, quantity)
-        self.type = 'buy'
+        self.transactionType = 'buy'
         return self
 
     def createSellTransaction(self, stock, quantity):
         self.create(stock, quantity)
-        self.type = 'sell'
+        self.transactionType = 'sell'
         return self
 
     def calculateTotal(self):
