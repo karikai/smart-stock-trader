@@ -14,11 +14,12 @@ class Account:
         self.transactions = []
         self.accountID = ''
 
-    def initializeAccount(self, capital, stocks, transactions, accountID):
+    def initializeAccount(self, capital, stocks, transactions, accountID, shares):
         self.capital = capital
         self.stocks = stocks
         self.transactions = transactions
         self.accountID = accountID
+        self.shares = shares
 
     def buy(self, stock, quantity):
         newTransaction = TRA.Transaction()

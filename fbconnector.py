@@ -65,25 +65,27 @@ def setConfig(config, accountID):
         u'latency': config.latency
     })
 
-def getAccount(account):
-    doc = getAccountRef(account.accountID)
+def getAccount(accountID):
+    doc = getAccountRef(accountID)
     accountDict = doc.get()
-    print(u'Document data: {}'.format(accountDict.to_dict()))
+    return accountDict.to_dict()
 
 def getTransaction(accountID):
     doc = getTransactionRef(accountID)
     transactionDict = doc.get()
-    print(u'Document data: {}'.format(transactionDict.to_dict()))
+    return transactionDict.to_dict()
 
 def getShare(accountID):
     doc = getShareRef(accountID)
     shareDict = doc.get()
-    print(u'Document data: {}'.format(shareDict.to_dict()))
+    return shareDict.to_dict()
+
 
 def getConfig(accountID):
     doc = getConfigRef(accountID)
-    shareDict = doc.get()
-    print(u'Document data: {}'.format(shareDict.to_dict()))
+    configDict = doc.get()
+    return configDict.to_dict()
+
 
 def updateAccount(account):
     setAccount(account)
